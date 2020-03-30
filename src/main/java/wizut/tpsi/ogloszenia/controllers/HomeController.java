@@ -20,7 +20,7 @@ public class HomeController {
         CarModel carModel = offersService.getModel(3);
 
         model.addAttribute("carManufacturer", carManufacturer.getName());
-        model.addAttribute("carModel", carModel.getManufacturer().getName());
+        model.addAttribute("carModel", carMfodel.getManufacturer().getName());
         return "index.html";
     }
 
