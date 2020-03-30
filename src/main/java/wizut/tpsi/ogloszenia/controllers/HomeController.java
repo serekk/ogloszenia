@@ -16,12 +16,12 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home(Model model){
-        CarManufacturer carManufacturer = offersService.getCarManufacturer(2);
-        CarModel carModel = offersService.getModel(3);
-
-        model.addAttribute("carManufacturer", carManufacturer.getName());
-        model.addAttribute("carModel", carMfodel.getManufacturer().getName());
-        return "index.html";
+//        CarManufacturer carManufacturer = offersService.getCarManufacturer(2);
+//        CarModel carModel = offersService.getModel(3);
+//
+//        model.addAttribute("carManufacturer", carManufacturer.getName());
+//        model.addAttribute("carModel", carModel.getManufacturer().getName());
+        return "offersList.html";
     }
 
 }
