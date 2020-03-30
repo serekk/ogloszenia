@@ -9,6 +9,12 @@
 </head>
 <body>
 <section layout:fragment="content">
+
+    <p th:each="cm : ${carManufacturersList}" th:text="${cm.name}"></p>
+    <p th:each="bs : ${bodyStylesList}" th:text="${bs.name}"></p>
+    <p th:each="ft : ${fuelTypesList}" th:text="${ft.name}"></p>
+    <p th:each="cmod : ${carModelsList}" th:text="${cmod.name}"></p>
+
 </section>
 </body>
 </html>
