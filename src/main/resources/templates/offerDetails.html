@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html layout:decorator="layout" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${offer.title}">Szczegóły oferty</title>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1 th:text="${offer.title}"></h1>
+    <h2>
+        Cena:
+        <span class="text-primary" th:text="${offer.price}"></span>
+    </h2>
+
+    <table class="table" th:object="${offer}">
+        <tr>
+            <th>Marka:</th>
+            <td th:text="*{model.manufacturer.name}"></td>
+            <th>Nadwozie:</th>
+            <td th:text="|*{bodyStyle.name} *{doors}D|"></td>
+        </tr>
+        <tr>
+            <th>Model:</th>
+            <td th:text="*{model.name}"></td>
+            <th>Kolor:</th>
+            <td th:text="*{colour}"></td>
+        </tr>
+    </table>
+    <div class="well" th:text="${offer.description}">
+    </div>
+</section>
+</body>
+</html>

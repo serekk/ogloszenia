@@ -10,10 +10,37 @@
 <body>
 <section layout:fragment="content">
 
-    <p th:each="cm : ${carManufacturersList}" th:text="${cm.name}"></p>
-    <p th:each="bs : ${bodyStylesList}" th:text="${bs.name}"></p>
-    <p th:each="ft : ${fuelTypesList}" th:text="${ft.name}"></p>
-    <p th:each="cmod : ${carModelsList}" th:text="${cmod.name}"></p>
+    <table class="table">
+        <tr>
+            <th>Tytuł</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Rok produkcji</th>
+            <th>Przebieg</th>
+            <th>Pojemność silnika</th>
+            <th>Moc silnika</th>
+            <th>Rodzaj paliwa</th>
+            <th>Rocznik</th>
+            <th>Cena</th>
+            <th></th>
+        </tr>
+        <tr th:each="offer : ${offers}">
+            <td th:text="${offer.title}"></td>
+            <td th:text="${offer.model.manufacturer.name}"></td>
+            <td th:text="${offer.model.name}"></td>
+            <td th:text="${offer.year}"></td>
+            <td th:text="${offer.mileage}"></td>
+            <td th:text="${offer.engineSize}"></td>
+            <td th:text="${offer.enginePower}"></td>
+            <td th:text="${offer.fuelType.name}"></td>
+            <td th:text="${offer.year}"></td>
+            <td class="text-right">
+                <span th:text="${#numbers.formatDecimal(offer.price, 0, 'WHITESPACE', 0,'COMMA')}"></span>
+                PLN
+            </td>
+            <td><a th:href="|/offer/${offer.id}|">Pokaż</a></td>
+        </tr>
+    </table>
 
 </section>
 </body>
