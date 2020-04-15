@@ -1,14 +1,38 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorator="layout">
+      layout:decorate="layout">
+
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"/>
+
 <head>
     <title>Lista ofert</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
 <section layout:fragment="content">
+
+    <div class="panel panel-default" id="offerFilter">
+        <div class="panel-heading">Szukaj ofert</div>
+        <div class="panel-body">
+            <form action="/" class="form-inline" id="offerFilterForm" method="get" th:object="${offerFilter}">
+                <select class="form-control" th:field="*{manufacturerId}">
+                    <option value="">Marka</option>
+                    <option th:each="manufacturer : ${carManufacturers}" th:text="${manufacturer.name}"
+                            th:value="${manufacturer.id}"></option>
+                </select>
+                <select class="form-control">
+                    <option value="">Model</option>
+                </select>
+
+                <input class="form-control" type="submit" value="Filtruj"/>
+            </form>
+        </div>
+    </div>
+
 
     <table class="table">
         <tr>

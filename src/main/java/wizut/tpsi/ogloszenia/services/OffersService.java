@@ -6,21 +6,28 @@ import wizut.tpsi.ogloszenia.jpa.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class OffersService {
     @PersistenceContext
     private EntityManager entityManager;
 
-    public List<CarManufacturer> getCarManufacturer(){
+    public Offer createOffer(Offer offer) {
+        entityManager.persist(offer);
+        return offer;
+    }
+
+    public List<CarManufacturer> getCarManufacturer() {
         String jpql = "select cm from CarManufacturer cm order by cm.name";
         TypedQuery<CarManufacturer> query = entityManager.createQuery(jpql, CarManufacturer.class);
         List<CarManufacturer> result = query.getResultList();
         return result;
     }
 
-    public List<BodyStyle> getBodyStyles(){
+    public List<BodyStyle> getBodyStyles() {
         String jpql = "select bs from BodyStyle bs order by bs.name";
         TypedQuery<BodyStyle> query = entityManager.createQuery(jpql, BodyStyle.class);
         List<BodyStyle> result = query.getResultList();
