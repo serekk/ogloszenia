@@ -93,6 +93,16 @@ public class OffersService {
 
     }
 
+    public Offer deleteOffer(Integer id) {
+        Offer offer = entityManager.find(Offer.class, id);
+        entityManager.remove(offer);
+        return offer;
+    }
+
+    public Offer saveOffer(Offer offer) {
+        return entityManager.merge(offer);
+    }
+
 
     public CarModel getModel(int id) {
         return entityManager.find(CarModel.class, id);

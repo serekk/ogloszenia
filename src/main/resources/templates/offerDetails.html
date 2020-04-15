@@ -36,6 +36,12 @@
     </table>
     <div class="well" th:text="${offer.description}">
     </div>
+
+    <div>
+        <a class="btn btn-danger" th:href="|/deleteoffer/${offer.id}|">Usuń ogłoszenie</a>
+        <a class="btn btn-primary" th:href="|/editoffer/${offer.id}|">Edytuj ogłoszenie</a>
+    </div>
+
 </section>
 </body>
 </html>

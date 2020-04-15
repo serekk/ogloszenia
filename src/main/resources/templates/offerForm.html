@@ -8,7 +8,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"/>
 
 <head>
-    <title>Nowe ogłoszenie</title>
+    <title th:text="${header}"></title>
     <meta charset="UTF-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 </head>
@@ -16,7 +16,7 @@
 <section layout:fragment="content">
     <h1>Nowe ogłoszenie</h1>
 
-    <form action="/newoffer" class="form-horizontal" method="POST" th:object="${offer}">
+    <form class="form-horizontal" method="POST" th:action="${action}" th:object="${offer}">
 
         <div class="form-group">
             <label class="col-sm-2 control-label">Tytuł:</label>
@@ -100,6 +100,7 @@
         <div class="form-group">
             <div class="col-sm-4"></div>
             <div class="col-sm-4">
+                <input th:field="*{id}" type="hidden"/>
                 <input class="form-control btn btn-primary" type="submit" value="Zapisz"/>
             </div>
             <div class="col-sm-4">
