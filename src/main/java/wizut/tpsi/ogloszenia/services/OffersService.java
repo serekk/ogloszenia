@@ -2,6 +2,7 @@ package wizut.tpsi.ogloszenia.services;
 
 import org.springframework.stereotype.Service;
 import wizut.tpsi.ogloszenia.jpa.*;
+import wizut.tpsi.ogloszenia.web.OfferFilter;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -91,6 +92,93 @@ public class OffersService {
 
         return query.getResultList();
 
+    }
+
+    public List<Integer> getYears() {
+        String jpql = "select distinct off.year from Offer off";
+        TypedQuery<Integer> query = entityManager.createQuery(jpql, Integer.class);
+        List<Integer> result = query.getResultList();
+
+
+        return result;
+    }
+
+    public List<Offer> getOffers(OfferFilter filter) {
+        String jpql = "select off from Offer off where ";
+        boolean hasFilter = false;
+        if (filter.getManufacturerId() != null) {
+            jpql += "off.model.manufacturer.id = :manufId";
+            hasFilter = true;
+        }
+        if (filter.getModelId() != null) {
+            if (hasFilter) {
+                jpql += " and ";
+            }
+            jpql += "off.model.id  = :modelId";
+            hasFilter = true;
+        }
+        if (filter.getFuelTypeId() != null) {
+            if (hasFilter) {
+                jpql += " and ";
+            }
+            jpql += "off.fuelType.id = :fuelId";
+            hasFilter = true;
+        }
+        if (filter.getYearMax() != null) {
+            if (hasFilter) {
+                jpql += " and ";
+            }
+            jpql += "off.year <= :yearMax";
+            hasFilter = true;
+        }
+        if (filter.getYearMin() != null) {
+            if (hasFilter) {
+                jpql += " and ";
+            }
+            jpql += "off.year >= :yearMin";
+            hasFilter = true;
+        }
+
+        if (filter.getDesc() != null) {
+            if (hasFilter) {
+                jpql += " and ";
+            }
+            jpql += "off.description like :desc";
+            hasFilter = true;
+        }
+
+
+        if (!hasFilter) {
+            jpql = "select off from Offer off order by off.title";
+            TypedQuery<Offer> query = entityManager.createQuery(jpql, Offer.class);
+            List<Offer> result = query.getResultList();
+            return query.getResultList();
+        }
+
+        TypedQuery<Offer> query = entityManager.createQuery(jpql, Offer.class);
+        if (filter.getManufacturerId() != null) {
+            query.setParameter("manufId", filter.getManufacturerId());
+        }
+        if (filter.getModelId() != null) {
+            query.setParameter("modelId", filter.getModelId());
+        }
+        if (filter.getFuelTypeId() != null) {
+            query.setParameter("fuelId", filter.getFuelTypeId());
+        }
+        if (filter.getYearMax() != null) {
+            query.setParameter("yearMax", filter.getYearMax());
+        }
+        if (filter.getYearMin() != null) {
+            query.setParameter("yearMin", filter.getYearMin());
+        }
+
+        if (filter.getDesc() != null) {
+            query.setParameter("desc", "%" + filter.getDesc() + "%");
+        }
+
+
+        List<Offer> result = query.getResultList();
+        return query.getResultList();
     }
 
     public Offer deleteOffer(Integer id) {

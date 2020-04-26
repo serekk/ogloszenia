@@ -32,6 +32,7 @@ create table user (
 create table offer (
 	id integer auto_increment primary key,
 	title varchar(255),
+	date date,
 	model_id integer,
 	body_style_id integer,
 	fuel_type_id integer,

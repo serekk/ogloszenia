@@ -7,6 +7,9 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet"/>
 
+<link href="/css/sortable-theme-bootstrap.css" rel="stylesheet"/>
+<script src="/js/sortable.min.js"></script>
+
 <head>
     <title>Lista ofert</title>
     <meta charset="UTF-8"/>
@@ -19,22 +22,51 @@
         <div class="panel-heading">Szukaj ofert</div>
         <div class="panel-body">
             <form action="/" class="form-inline" id="offerFilterForm" method="get" th:object="${offerFilter}">
+
                 <select class="form-control" th:field="*{manufacturerId}">
                     <option value="">Marka</option>
                     <option th:each="manufacturer : ${carManufacturers}" th:text="${manufacturer.name}"
                             th:value="${manufacturer.id}"></option>
                 </select>
-                <select class="form-control">
+
+                <select class="form-control" th:field="*{modelId}">
                     <option value="">Model</option>
+                    <option th:each="model : ${carModels}" th:text="${model.name}"
+                            th:value="${model.id}"></option>
                 </select>
 
-                <input class="form-control" type="submit" value="Filtruj"/>
+                <select class="form-control" th:field="*{yearMin}">
+                    <option value="">Rok od</option>
+                    <option th:each="year : ${yearList}" th:text="${year}"
+                            th:value="${year}"></option>
+                </select>
+
+                <select class="form-control" th:field="*{yearMax}">
+                    <option value="">Rok do</option>
+                    <option th:each="year : ${yearList}" th:text="${year}"
+                            th:value="${year}"></option>
+                </select>
+
+                <select class="form-control" th:field="*{fuelTypeId}">
+                    <option value="">Rodzaj paliwa</option>
+                    <option th:each="fuelType : ${fuelTypes}" th:text="${fuelType.name}"
+                            th:value="${fuelType.id}"></option>
+                </select>
+
+                <input class="form-control" placeholder="opis..." th:field="*{desc}" type="text"/>
+
+
+                <input class="form-control" type="submit" value="Szukaj"/>
+                <a class="btn btn-success pull-right" href="/newoffer">Nowa oferta</a>
             </form>
         </div>
+
+
     </div>
 
 
-    <table class="table">
+    <table class="table sortable-theme-dark" data-sortable>
+        <thead>
         <tr>
             <th>Tytuł</th>
             <th>Marka</th>
@@ -46,8 +78,12 @@
             <th>Rodzaj paliwa</th>
             <th>Rocznik</th>
             <th>Cena</th>
+            <th>Data</th>
+
             <th></th>
         </tr>
+        </thead>
+        <tbody>
         <tr th:each="offer : ${offers}">
             <td th:text="${offer.title}"></td>
             <td th:text="${offer.model.manufacturer.name}"></td>
@@ -62,10 +98,13 @@
                 <span th:text="${#numbers.formatDecimal(offer.price, 0, 'WHITESPACE', 0,'COMMA')}"></span>
                 PLN
             </td>
+            <td th:text="${offer.date}"></td>
             <td><a th:href="|/offer/${offer.id}|">Pokaż</a></td>
         </tr>
+        </tbody>
     </table>
 
 </section>
+
 </body>
 </html>

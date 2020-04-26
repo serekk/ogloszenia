@@ -13,6 +13,7 @@ import wizut.tpsi.ogloszenia.services.OffersService;
 import wizut.tpsi.ogloszenia.web.OfferFilter;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -24,19 +25,27 @@ public class HomeController {
     @RequestMapping("/")
     public String home(Model model, OfferFilter offerFilter) {
         List<CarManufacturer> carManufacturers = offersService.getCarManufacturer();
-        List<CarModel> carModels = offersService.getCarModels();
-
+        List<CarModel> carModels = null;
         List<Offer> offers;
+        List<Integer> yearList = offersService.getYears();
+        List<FuelType> fuelTypes = offersService.getFuelTypes();
 
-        if (offerFilter.getManufacturerId() != null) {
-            offers = offersService.getOffersByManufacturer(offerFilter.getManufacturerId());
+        if (offerFilter.getModelId() != null) {
+            offers = offersService.getOffers(offerFilter);
+            carModels = offersService.getCarModels(offerFilter.getManufacturerId());
+        } else if (offerFilter.getModelId() == null && offerFilter.getManufacturerId() != null) {
+            offers = offersService.getOffers(offerFilter);
+            carModels = offersService.getCarModels(offerFilter.getManufacturerId());
         } else {
-            offers = offersService.getOffers();
+            offers = offersService.getOffers(offerFilter);
         }
+
 
         model.addAttribute("carManufacturers", carManufacturers);
         model.addAttribute("carModels", carModels);
         model.addAttribute("offers", offers);
+        model.addAttribute("yearList", yearList);
+        model.addAttribute("fuelTypes", fuelTypes);
 
         return "offersList";
     }
@@ -80,6 +89,7 @@ public class HomeController {
 
             return "offerForm";
         }
+        offer.setDate(LocalDate.now());
         offer = offersService.createOffer(offer);
 
         return "redirect:/offer/" + offer.getId();
