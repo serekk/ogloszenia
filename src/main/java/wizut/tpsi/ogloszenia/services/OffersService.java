@@ -92,7 +92,7 @@ public class OffersService {
 
         return query.getResultList();
 
-    }
+}
 
     public List<Integer> getYears() {
         String jpql = "select distinct off.year from Offer off";
