@@ -20,40 +20,50 @@
     <form class="form-horizontal" method="POST" th:action="${action}" th:object="${offer}">
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Tytuł:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{title}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{title}')?'błędny tytuł (zakres 5-255 znaków)':'Tytuł:'}">Tytuł:</label>
             <div class="col-sm-10" th:classappend="${#fields.hasErrors('*{title}')?'has-error':''}">
                 <input class="form-control" th:field="*{title}" type="text"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Rocznik:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{year}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{year}')?'błędny rocznik (nie starszy niż 1900)':'Rocznik:'}">Rocznik:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{year}')?'has-error':''}">
                 <input class="form-control" th:field="*{year}" type="number"/>
             </div>
-            <label class="col-sm-2 control-label">Przebieg:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{mileage}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{mileage}')?'błędny przebieg (pusty lub ujemny?)':'Przebieg:'}">Przebieg:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{mileage}')?'has-error':''}">
                 <input class="form-control" th:field="*{mileage}" type="number"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Pojemność silnika:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{engineSize}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{engineSize}')?'błędna pojemność silnika (pusta lub ujemna?)':'Pojemność silnika:'}">Pojemność
+                silnika:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{engineSize}')?'has-error':''}">
                 <input class="form-control" step="0.1" th:field="*{engineSize}" type="number"/>
             </div>
-            <label class="col-sm-2 control-label">Moc silnika:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{enginePower}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{enginePower}')?'błędna moc silnika (pusta lub ujemna?)':'Moc silnika:'}">Moc
+                silnika:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{enginePower}')?'has-error':''}">
                 <input class="form-control" th:field="*{enginePower}" type="number"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Liczba drzwi:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{doors}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{doors}')?'błędna ilość drzwi (zakres 1-5 drzwi)':'Ilość drzwi:'}">Ilość
+                drzwi:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{doors}')?'has-error':''}">
                 <input class="form-control" th:field="*{doors}" type="number"/>
             </div>
-            <label class="col-sm-2 control-label">Kolor:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{colour}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{colour}')?'błędny kolor (zakres 3-30)':'Kolor:'}">Kolor:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{colour}')?'has-error':''}">
                 <input class="form-control" th:field="*{colour}" type="text"/>
             </div>
@@ -85,14 +95,16 @@
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Cena:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{price}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{price}')?'błędna cena (pusta lub ujemna?)':'Cena:'}">Cena:</label>
             <div class="col-sm-4" th:classappend="${#fields.hasErrors('*{price}')?'has-error':''}">
                 <input class="form-control" th:field="*{price}" type="number"/>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-2 control-label">Opis:</label>
+            <label class="col-sm-2 control-label" th:style="${#fields.hasErrors('*{description}')?'color: red':''}"
+                   th:text="${#fields.hasErrors('*{description}')?'błędny opis (zakres 5-65535 znaków)':'Opis:'}">Opis:</label>
             <div class="col-sm-10" th:classappend="${#fields.hasErrors('*{description}')?'has-error':''}">
                 <textarea class="form-control" rows="5" th:field="*{description}"/>
             </div>
